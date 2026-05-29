@@ -1,0 +1,16 @@
+[Unit]
+Description=Gold Alert FastAPI service
+After=network.target
+
+[Service]
+Type=simple
+User=gold
+Group=gold
+WorkingDirectory=/opt/gold/backend
+EnvironmentFile=/opt/gold/backend/.env
+ExecStart=/opt/gold/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

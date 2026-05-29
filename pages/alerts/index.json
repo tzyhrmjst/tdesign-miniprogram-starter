@@ -1,8 +1,9 @@
 {
   "navigationStyle": "custom",
   "usingComponents": {
-    "t-pull-down-refresh": "tdesign-miniprogram/pull-down-refresh/pull-down-refresh",
+    "t-button": "tdesign-miniprogram/button/button",
     "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-switch": "tdesign-miniprogram/switch/switch",
     "nav": "/components/nav"
   }
 }

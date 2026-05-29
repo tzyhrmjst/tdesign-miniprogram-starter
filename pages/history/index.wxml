@@ -1,0 +1,24 @@
+<view class="history-page">
+  <nav title-text="提醒历史" />
+
+  <view class="history-content">
+    <view class="title">触发记录</view>
+    <view class="subtitle">按触发时间倒序展示</view>
+
+    <view wx:if="{{loading}}" class="empty">正在加载...</view>
+    <view wx:elif="{{histories.length === 0}}" class="empty">暂无触发记录</view>
+
+    <view wx:else class="history-list">
+      <view wx:for="{{histories}}" wx:key="id" class="history-card">
+        <view class="card-top">
+          <view class="rule-name">{{item.rule_name || item.message}}</view>
+          <view class="time">{{item.timeText}}</view>
+        </view>
+        <view class="price-line">
+          触发价 {{item.unitSymbol}}{{item.triggerText}}，目标为{{item.directionText}} {{item.unitSymbol}}{{item.targetText}}
+        </view>
+        <view class="unit">{{item.unitText}}</view>
+      </view>
+    </view>
+  </view>
+</view>

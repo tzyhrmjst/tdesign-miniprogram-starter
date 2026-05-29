@@ -6,14 +6,19 @@ Component({
     unreadNum: 0, // 未读消息数量
     list: [
       {
-        icon: 'home',
-        value: 'index',
-        label: '首页',
+        icon: 'chart',
+        value: 'home',
+        label: '行情',
       },
       {
-        icon: 'chat',
-        value: 'notice',
-        label: '消息',
+        icon: 'notification',
+        value: 'alerts',
+        label: '提醒',
+      },
+      {
+        icon: 'time',
+        value: 'history',
+        label: '历史',
       },
       {
         icon: 'user',
@@ -27,7 +32,7 @@ Component({
       const pages = getCurrentPages();
       const curPage = pages[pages.length - 1];
       if (curPage) {
-        const nameRe = /pages\/(\w+)\/index/.exec(curPage.route);
+      const nameRe = /pages\/([\w-]+)\/index/.exec(curPage.route);
         if (nameRe === null) return;
         if (nameRe[1] && nameRe) {
           this.setData({
@@ -36,7 +41,6 @@ Component({
         }
       }
 
-      // 同步全局未读消息数量
       this.setUnreadNum(app.globalData.unreadNum);
       app.eventBus.on('unread-num-change', (unreadNum) => {
         this.setUnreadNum(unreadNum);

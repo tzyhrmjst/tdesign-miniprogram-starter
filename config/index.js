@@ -1,6 +1,8 @@
-/** 是否使用mock代替api返回 */
-export const config = {
-  useMock: true,
+const config = {
+  isMock: false,
+  useMock: false,
+  baseUrl: 'https://api.goldbell.cloud',
 };
 
-export default { config };
+export { config };
+export default config;

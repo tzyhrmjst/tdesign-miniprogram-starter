@@ -1,0 +1,82 @@
+@import '/variable.less';
+
+.alerts-page {
+  min-height: 100vh;
+  padding-bottom: @tab-bar-height;
+  background: #f6f3ec;
+}
+
+.alerts-content {
+  padding: 28rpx;
+}
+
+.top-row,
+.alert-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  color: #1f2328;
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.subtitle,
+.alert-meta {
+  margin-top: 8rpx;
+  color: #6d6a62;
+  font-size: 24rpx;
+}
+
+.alert-list {
+  display: grid;
+  gap: 20rpx;
+  margin-top: 28rpx;
+}
+
+.alert-card,
+.empty {
+  border-radius: 8rpx;
+  padding: 28rpx;
+  background: #ffffff;
+}
+
+.alert-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.alert-name {
+  color: #1f2328;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.alert-rule {
+  margin-top: 12rpx;
+  color: #b7791f;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.alert-actions {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  margin-left: 20rpx;
+}
+
+.empty {
+  margin-top: 28rpx;
+  color: #6d6a62;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.empty-action {
+  margin-top: 18rpx;
+  color: #b7791f;
+  font-weight: 700;
+}

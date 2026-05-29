@@ -1,5 +1,6 @@
 <t-tab-bar value="{{ value }}" theme="tag" split="{{ false }}" bind:change="handleChange">
-  <t-tab-bar-item icon="home" value="home">首页</t-tab-bar-item>
-  <t-tab-bar-item icon="chat" value="message" badge-props="{{ { count: unreadNum } }}">消息</t-tab-bar-item>
+  <t-tab-bar-item icon="chart" value="home">行情</t-tab-bar-item>
+  <t-tab-bar-item icon="notification" value="alerts">提醒</t-tab-bar-item>
+  <t-tab-bar-item icon="time" value="history">历史</t-tab-bar-item>
   <t-tab-bar-item icon="user" value="my">我的</t-tab-bar-item>
 </t-tab-bar>

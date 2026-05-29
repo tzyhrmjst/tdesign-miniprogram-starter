@@ -1,4 +1,4 @@
 export default {
-  isMock: true,
-  baseUrl: '',
+  isMock: false,
+  baseUrl: 'https://api.goldbell.cloud',
 };

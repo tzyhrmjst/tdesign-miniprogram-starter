@@ -1,0 +1,60 @@
+<view class="edit-page">
+  <view class="edit-header" style="padding-top: {{statusHeight}}px">
+    <view class="header-left" bindtap="goBack">
+      <t-icon name="chevron-left" size="48rpx" />
+    </view>
+    <view class="header-title">{{id ? '编辑提醒' : '新增提醒'}}</view>
+    <view class="header-right"></view>
+  </view>
+
+  <view class="form">
+    <view class="field">
+      <view class="label">规则名称</view>
+      <t-input value="{{form.name}}" placeholder="未填写时自动生成" data-field="name" bind:change="onInput" />
+    </view>
+
+    <view class="field">
+      <view class="label">提醒方向</view>
+      <t-radio-group value="{{form.direction}}" bind:change="onDirectionChange">
+        <t-radio wx:for="{{directionOptions}}" wx:key="value" value="{{item.value}}">{{item.label}}</t-radio>
+      </t-radio-group>
+    </view>
+
+    <view class="field">
+      <view class="label">目标价格</view>
+      <t-input
+        value="{{form.target_price}}"
+        type="digit"
+        placeholder="请输入目标价格"
+        data-field="target_price"
+        bind:change="onInput"
+      />
+    </view>
+
+
+    <view class="field">
+      <view class="label">冷却时间（分钟）</view>
+      <t-input
+        value="{{form.cooldown_minutes}}"
+        type="number"
+        placeholder="默认 720"
+        data-field="cooldown_minutes"
+        bind:change="onInput"
+      />
+      <view class="hint cooldown-hint">
+        同一条提醒触发后，在这段时间内不会重复记录。默认 720 分钟即 12 小时，可减少频繁打扰。
+      </view>
+    </view>
+
+    <view class="switch-row">
+      <view>
+        <view class="label">启用提醒</view>
+        <view class="hint">关闭后不会写入新的触发记录</view>
+      </view>
+      <t-switch value="{{form.enabled}}" bind:change="onEnabledChange" />
+    </view>
+
+    <t-button block theme="primary" size="large" bindtap="onSubmit">保存提醒</t-button>
+    <view class="notice">本服务仅提供黄金价格信息与提醒功能，不构成投资建议。</view>
+  </view>
+</view>

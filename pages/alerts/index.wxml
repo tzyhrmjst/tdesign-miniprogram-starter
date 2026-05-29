@@ -1,0 +1,35 @@
+<view class="alerts-page">
+  <nav title-text="价格提醒" />
+
+  <view class="alerts-content">
+    <view class="top-row">
+      <view>
+        <view class="title">提醒规则</view>
+        <view class="subtitle">达到设定价格后写入提醒历史</view>
+      </view>
+      <t-button theme="primary" size="small" icon="add" bindtap="goCreate">新增</t-button>
+    </view>
+
+    <view wx:if="{{loading}}" class="empty">正在加载...</view>
+    <view wx:elif="{{alerts.length === 0}}" class="empty">
+      暂无提醒规则
+      <view class="empty-action" bindtap="goCreate">创建第一条提醒</view>
+    </view>
+
+    <view wx:else class="alert-list">
+      <view wx:for="{{alerts}}" wx:key="id" class="alert-card">
+        <view class="alert-main" data-id="{{item.id}}" bindtap="goEdit">
+          <view class="alert-name">{{item.name}}</view>
+          <view class="alert-rule">
+            {{item.directionText}} {{item.unitSymbol}}{{item.targetText}} · {{item.unitText}}
+          </view>
+          <view class="alert-meta">最近触发：{{item.lastTriggeredText}}</view>
+        </view>
+        <view class="alert-actions">
+          <t-switch value="{{item.enabled}}" data-id="{{item.id}}" bind:change="onToggle" />
+          <t-icon name="delete" size="42rpx" data-id="{{item.id}}" bindtap="onDelete" />
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

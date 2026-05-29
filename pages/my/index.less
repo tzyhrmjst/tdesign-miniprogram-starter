@@ -1,102 +1,77 @@
-.my {
-  height: calc(100vh - 56px);
-  overflow-y: auto;
+@import '/variable.less';
 
-  --td-navbar-bg-color: transparent;
-  .nav-bg {
-    width: 750rpx;
-    height: 200rpx;
-    position: fixed;
-    top: 0;
-  }
+.profile-page {
+  min-height: 100vh;
+  padding-bottom: @tab-bar-height;
+  background: #f6f3ec;
+}
 
-  &-info,
-  &-service,
-  &-setting {
-    background-color: #fff;
-  }
+.profile-content {
+  display: grid;
+  gap: 24rpx;
+  padding: 28rpx;
+}
 
-  &-info {
-    border-radius: 24rpx;
-    margin: 8rpx 32rpx 0rpx 32rpx;
-    padding-bottom: 32rpx;
-    overflow: hidden;
+.profile-card,
+.setting-card,
+.notice {
+  border-radius: 8rpx;
+  padding: 28rpx;
+  background: #ffffff;
+}
 
-    .cell-class-title {
-      font-weight: 600 !important;
-    }
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
 
-    .cell-class-center {
-      display: flex;
-      align-items: center !important;
-    }
+.avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  color: #111315;
+  background: #e8b860;
+  font-size: 30rpx;
+  font-weight: 800;
+  line-height: 96rpx;
+  text-align: center;
+}
 
-    .divider-class {
-      margin-top: 0 !important;
-      margin-bottom: 0 !important;
-    }
+.name {
+  color: #1f2328;
+  font-size: 34rpx;
+  font-weight: 700;
+}
 
-    .grid-class {
-      margin-top: 40rpx;
-    }
+.openid,
+.notice {
+  margin-top: 10rpx;
+  color: #6d6a62;
+  font-size: 24rpx;
+  line-height: 1.6;
+}
 
-    .grid-item .t-grid-item__content {
-      padding: 0px !important;
-    }
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+  padding: 22rpx 0;
+  border-bottom: 1rpx solid #eee7dc;
+}
 
-    .split-line {
-      border-right: 1px solid #e7e7e7;
-    }
+.setting-row:last-child {
+  border-bottom: 0;
+}
 
-    // 头像margin-right
-    --td-spacer-1: 32rpx;
+.setting-label {
+  color: #6d6a62;
+  font-size: 26rpx;
+}
 
-    &__person {
-      .name {
-        line-height: 48rpx;
-        font-size: 32rpx;
-        color: #000000e6;
-        font-weight: 600;
-      }
-
-      .tags {
-        display: flex;
-        margin-top: 16rpx;
-
-        --td-text-color-primary: #000000e6;
-        --td-tag-medium-font-size: 20rpx;
-        --td-tag-medium-icon-size: 24rpx;
-      }
-
-      .tag:not(:last-child) {
-        margin-right: 16rpx;
-      }
-    }
-  }
-
-  &-service {
-    border-radius: 24rpx;
-    margin: 32rpx;
-    padding-bottom: 8rpx;
-    overflow: hidden;
-
-    &__list-item {
-      .t-grid-item__content {
-        padding-bottom: 16rpx !important;
-      }
-      .t-grid-item__text {
-        height: 40rpx !important;
-      }
-    }
-
-    &--tips {
-      height: 44rpx;
-      line-height: 44rpx;
-      padding-left: 40rpx;
-      margin-top: 32rpx;
-      color: #000000e6;
-      font-size: 28rpx;
-      font-weight: 600;
-    }
-  }
+.setting-value {
+  color: #1f2328;
+  font-size: 26rpx;
+  font-weight: 600;
+  text-align: right;
 }

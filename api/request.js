@@ -22,7 +22,7 @@ function request(url, method = 'GET', data = {}) {
       success(res) {
         setTimeout(() => {
           // HTTP状态码为200才视为成功
-          if (res.code === 200) {
+          if (res.code === 200 || res.statusCode === 200) {
             resolve(res);
           } else {
             // wx.request的特性，只要有响应就会走success回调，所以在这里判断状态，非200的均视为请求失败

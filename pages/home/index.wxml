@@ -1,48 +1,59 @@
-<nav nav-type="search" />
-<view class="home-container">
-  <view class="home-content">
-    <t-tabs defaultValue="recommend">
-      <t-tab-panel label="推荐" value="recommend">
-        <t-pull-down-refresh
-          value="{{enable}}"
-          bind:refresh="onRefresh"
-          loadingTexts="{{['下拉刷新', '松手刷新', '正在刷新', '刷新完成']}}"
-        >
-          <view class="home-card-list">
-            <t-swiper
-              list="{{swiperList}}"
-              navigation="{{ { type: 'dots-bar' } }}"
-              height="488rpx"
-              style="width: 340rpx"
-            />
-            <card
-              wx:for="{{cardInfo}}"
-              wx:key="index"
-              desc="{{item.desc}}"
-              url="{{item.url}}"
-              tags="{{item.tags}}"
-            />
+<view class="gold-page">
+  <view class="gold-title">黄金价格提醒</view>
+
+  <view class="gold-content">
+    <view class="price-panel">
+      <view class="panel-head">
+        <view class="eyebrow">实时金价</view>
+        <view class="freshness">{{updatedAtText}}</view>
+      </view>
+
+      <view wx:if="{{loading}}" class="state-box">正在获取最新价格...</view>
+      <view wx:elif="{{error}}" class="state-box error">{{error}}</view>
+      <view wx:else>
+        <view class="price-row">
+          <view class="price-col">
+            <view class="price-value">
+              <text class="currency">¥</text>
+              <text class="price">{{displayPrice}}</text>
+            </view>
+            <view class="price-label">售价</view>
           </view>
-        </t-pull-down-refresh>
-      </t-tab-panel>
-      <t-tab-panel label="我的关注" value="follow">
-        <view class="home-card-list">
-          <card
-            wx:for="{{focusCardInfo}}"
-            wx:key="index"
-            desc="{{item.desc}}"
-            url="{{item.url}}"
-            tags="{{item.tags}}"
-          />
+          <view class="price-divider"></view>
+          <view class="price-col">
+            <view class="price-value">
+              <text class="currency buyback-currency">¥</text>
+              <text class="price buyback-price">{{displayBuybackPrice}}</text>
+            </view>
+            <view class="price-label">回收价</view>
+          </view>
         </view>
-      </t-tab-panel>
-    </t-tabs>
+        <view class="unit">人民币/克</view>
+        <view class="change {{changeClass}}">
+          今日变化 {{changeText}} · {{changePercentText}}
+        </view>
+      </view>
+    </view>
+
+    <view class="quick-grid">
+      <view class="quick-card" bindtap="goCreateAlert">
+        <t-icon name="notification-add" size="44rpx" />
+        <view>
+          <view class="quick-title">新增提醒</view>
+          <view class="quick-desc">高于或低于目标价时记录提醒</view>
+        </view>
+      </view>
+      <view class="quick-card" bindtap="goHistory">
+        <t-icon name="time" size="44rpx" />
+        <view>
+          <view class="quick-title">提醒历史</view>
+          <view class="quick-desc">查看已触发的价格提醒</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="notice">
+      本服务仅提供黄金价格信息与提醒功能。
+    </view>
   </view>
 </view>
-
-<view class="home-release">
-  <t-button theme="primary" size="large" icon="add" shape="round" bindtap="goRelease">
-    发布
-  </t-button>
-</view>
-<t-message id="t-message" />

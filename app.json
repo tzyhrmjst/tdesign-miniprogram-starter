@@ -1,50 +1,8 @@
 {
-  "pages": ["pages/home/index", "pages/message/index", "pages/my/index"],
+  "pages": ["pages/home/index", "pages/alerts/index", "pages/history/index", "pages/my/index", "pages/alert-edit/index"],
   "usingComponents": {
     "t-toast": "tdesign-miniprogram/toast/toast"
   },
-  "subpackages": [
-    {
-      "root": "pages/search",
-      "name": "search",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/my/info-edit",
-      "name": "edit",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/chat",
-      "name": "chat",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/login",
-      "name": "login",
-      "pages": ["login"]
-    },
-    {
-      "root": "pages/loginCode",
-      "name": "loginCode",
-      "pages": ["loginCode"]
-    },
-    {
-      "root": "pages/dataCenter",
-      "name": "dataCenter",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/setting",
-      "name": "setting",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/release",
-      "name": "release",
-      "pages": ["index"]
-    }
-  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -56,11 +14,15 @@
     "list": [
       {
         "pagePath": "pages/home/index",
-        "text": "首页"
+        "text": "行情"
       },
       {
-        "pagePath": "pages/message/index",
-        "text": "消息"
+        "pagePath": "pages/alerts/index",
+        "text": "提醒"
+      },
+      {
+        "pagePath": "pages/history/index",
+        "text": "历史"
       },
       {
         "pagePath": "pages/my/index",
