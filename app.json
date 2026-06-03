@@ -1,5 +1,47 @@
 {
-  "pages": ["pages/home/index", "pages/alerts/index", "pages/history/index", "pages/my/index", "pages/alert-edit/index"],
+  "pages": ["pages/home/index", "pages/alerts/index", "pages/history/index", "pages/my/index"],
+  "subPackages": [
+    {
+      "root": "pages/alert-edit",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/login",
+      "pages": ["login"]
+    },
+    {
+      "root": "pages/loginCode",
+      "pages": ["loginCode"]
+    },
+    {
+      "root": "pages/dataCenter",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/release",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/setting",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/search",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/message",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/chat",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/my/info-edit",
+      "pages": ["index"]
+    }
+  ],
   "usingComponents": {
     "t-toast": "tdesign-miniprogram/toast/toast"
   },

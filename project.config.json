@@ -1,7 +1,100 @@
 {
   "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "backend"
+      },
+      {
+        "type": "folder",
+        "value": "deploy"
+      },
+      {
+        "type": "file",
+        "value": "package-lock.json"
+      },
+      {
+        "type": "file",
+        "value": "mock/index.js"
+      },
+      {
+        "type": "file",
+        "value": "mock/WxMock.js"
+      },
+      {
+        "type": "file",
+        "value": "mock/mock.js"
+      },
+      {
+        "type": "folder",
+        "value": "mock/dataCenter"
+      },
+      {
+        "type": "folder",
+        "value": "mock/gold"
+      },
+      {
+        "type": "folder",
+        "value": "mock/home"
+      },
+      {
+        "type": "folder",
+        "value": "mock/login"
+      },
+      {
+        "type": "folder",
+        "value": "mock/my"
+      },
+      {
+        "type": "folder",
+        "value": "mock/search"
+      },
+      {
+        "type": "folder",
+        "value": "static/home"
+      },
+      {
+        "type": "file",
+        "value": "static/img_td.png"
+      },
+      {
+        "type": "file",
+        "value": "static/avatar1.png"
+      },
+      {
+        "type": "file",
+        "value": "static/bg_navbar.png"
+      },
+      {
+        "type": "file",
+        "value": "static/bg_navbar2.png"
+      },
+      {
+        "type": "file",
+        "value": "static/icon_doc.png"
+      },
+      {
+        "type": "file",
+        "value": "static/icon_map.png"
+      },
+      {
+        "type": "file",
+        "value": "static/icon_qq.png"
+      },
+      {
+        "type": "file",
+        "value": "static/icon_td.png"
+      },
+      {
+        "type": "file",
+        "value": "static/icon_wx.png"
+      },
+      {
+        "type": "suffix",
+        "value": ".map"
+      }
+    ],
     "include": []
   },
   "setting": {
@@ -19,7 +112,7 @@
     "autoAudits": false,
     "newFeature": false,
     "uglifyFileName": false,
-    "uploadWithSourceMap": true,
+    "uploadWithSourceMap": false,
     "useIsolateContext": true,
     "nodeModules": false,
     "enhance": true,
