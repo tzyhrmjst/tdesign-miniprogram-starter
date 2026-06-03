@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Literal, Optional
 
 from app.services.alert_service import create_alert, delete_alert, list_alerts, list_histories, update_alert
 
@@ -33,6 +33,7 @@ class AlertPayload(BaseModel):
     direction: str
     target_price: float = Field(gt=0)
     unit: str
+    price_type: Literal["sale", "buyback"] = "sale"
     cooldown_minutes: int = Field(default=720, gt=0)
     enabled: bool = True
 

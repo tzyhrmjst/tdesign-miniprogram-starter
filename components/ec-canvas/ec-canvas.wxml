@@ -1,0 +1,9 @@
+<ec-canvas-core
+  id="{{ id }}"
+  echarts="{{ echarts }}"
+  ec="{{ ec }}"
+  canvas-id="{{ canvasId }}"
+  is-use-new-canvas="{{ isUseNewCanvas }}"
+  force-use-old-canvas="{{ forceUseOldCanvas }}"
+>
+</ec-canvas-core>

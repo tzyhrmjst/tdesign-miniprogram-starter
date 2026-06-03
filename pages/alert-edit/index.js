@@ -1,13 +1,14 @@
 import { createAlert, fetchAlerts, updateAlert } from '~/api/gold';
 import { ensureWechatIdentity } from '~/api/auth';
 import { subscribeTemplateId } from '~/config/wechat';
-import { directionText, unitText } from '~/utils/gold';
+import { directionText, priceTypeText, unitText } from '~/utils/gold';
 
 const defaultForm = {
   name: '',
   direction: 'above',
   target_price: '',
   unit: 'cny_g',
+  price_type: 'sale',
   cooldown_minutes: 720,
   enabled: true,
 };
@@ -21,6 +22,10 @@ Page({
     directionOptions: [
       { label: '高于某价格提醒', value: 'above' },
       { label: '低于某价格提醒', value: 'below' },
+    ],
+    priceTypeOptions: [
+      { label: '售价', value: 'sale' },
+      { label: '回收价', value: 'buyback' },
     ],
   },
 
@@ -37,7 +42,7 @@ Page({
     const alerts = await fetchAlerts();
     const target = alerts.find((item) => String(item.id) === String(options.id));
     if (target) {
-      const autoName = this.buildAutoName(target.direction, target.target_price, target.unit);
+      const autoName = this.buildAutoName(target.direction, target.target_price, target.unit, target.price_type);
       const autoNameEnabled = target.name === autoName;
       this.setData({
         id: options.id,
@@ -47,6 +52,7 @@ Page({
           direction: target.direction,
           target_price: String(target.target_price),
           unit: target.unit,
+          price_type: target.price_type || 'sale',
           cooldown_minutes: target.cooldown_minutes,
           enabled: target.enabled,
         },
@@ -54,8 +60,8 @@ Page({
     }
   },
 
-  buildAutoName(direction, targetPrice, unit) {
-    return `${directionText(direction)} ${Number(targetPrice)} ${unitText(unit)}提醒`;
+  buildAutoName(direction, targetPrice, unit, priceType = 'sale') {
+    return `${priceTypeText(priceType)}${directionText(direction)} ${Number(targetPrice)} ${unitText(unit)}提醒`;
   },
 
   onInput(e) {
@@ -70,6 +76,10 @@ Page({
 
   onDirectionChange(e) {
     this.setData({ 'form.direction': e.detail.value });
+  },
+
+  onPriceTypeChange(e) {
+    this.setData({ 'form.price_type': e.detail.value });
   },
 
   onEnabledChange(e) {
@@ -89,7 +99,7 @@ Page({
       return null;
     }
     const name = autoNameEnabled || !String(form.name).trim()
-      ? this.buildAutoName(form.direction, targetPrice, form.unit)
+      ? this.buildAutoName(form.direction, targetPrice, form.unit, form.price_type)
       : String(form.name).trim();
     return {
       ...form,

@@ -21,7 +21,7 @@
         <view class="alert-main" data-id="{{item.id}}" bindtap="goEdit">
           <view class="alert-name">{{item.name}}</view>
           <view class="alert-rule">
-            {{item.directionText}} {{item.unitSymbol}}{{item.targetText}} · {{item.unitText}}
+            {{item.priceTypeText}}{{item.directionText}} {{item.unitSymbol}}{{item.targetText}} · {{item.unitText}}
           </view>
           <view class="alert-meta">最近触发：{{item.lastTriggeredText}}</view>
         </view>

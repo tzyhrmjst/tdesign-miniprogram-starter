@@ -5,7 +5,6 @@ Page({
     openid: '',
     openidSource: '本地演示用户',
     items: [
-      { label: '数据来源', value: '京东金融黄金' },
       { label: '计价单位', value: '人民币/克' },
       { label: '提醒方式', value: '微信服务通知' },
     ],

@@ -66,7 +66,7 @@ def send_subscribe_message(openid: str, data: dict):
         "touser": openid,
         "template_id": template_id,
         "page": "pages/history/index",
-        "miniprogram_state": os.getenv("WECHAT_MINIPROGRAM_STATE", "developer"),
+        "miniprogram_state": os.getenv("WECHAT_MINIPROGRAM_STATE", "formal"),
         "lang": "zh_CN",
         "data": data,
     }

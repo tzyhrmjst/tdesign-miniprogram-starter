@@ -11,6 +11,7 @@ def now_iso():
 def row_to_alert(row):
     data = dict(row)
     data["enabled"] = bool(data["enabled"])
+    data["price_type"] = data.get("price_type") or "sale"
     return data
 
 
@@ -29,8 +30,8 @@ def create_alert(payload: dict):
         cursor = conn.execute(
             """
             INSERT INTO alert_rules
-            (openid, name, direction, target_price, unit, cooldown_minutes, enabled, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (openid, name, direction, target_price, unit, price_type, cooldown_minutes, enabled, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 payload["openid"],
@@ -38,6 +39,7 @@ def create_alert(payload: dict):
                 payload["direction"],
                 payload["target_price"],
                 payload["unit"],
+                payload.get("price_type") or "sale",
                 payload.get("cooldown_minutes", 720),
                 1 if payload.get("enabled", True) else 0,
                 created_at,
@@ -49,7 +51,7 @@ def create_alert(payload: dict):
 
 
 def update_alert(rule_id: int, payload: dict):
-    fields = ["name", "direction", "target_price", "unit", "cooldown_minutes", "enabled"]
+    fields = ["name", "direction", "target_price", "unit", "price_type", "cooldown_minutes", "enabled"]
     values = []
     assignments = []
     for field in fields:
@@ -85,6 +87,26 @@ def list_histories(openid: str):
     return [dict(row) for row in rows]
 
 
+def _price_type_text(price_type):
+    return "回收价" if price_type == "buyback" else "售价"
+
+
+def _select_rule_price(price, rule):
+    if rule["unit"] != "cny_g":
+        return price["price_usd_oz"]
+    if (rule["price_type"] or "sale") == "buyback":
+        return price.get("buyback_price_cny_g") or price["price_cny_g"]
+    return price["price_cny_g"]
+
+
+def _select_snapshot_price(row, rule):
+    if rule["unit"] != "cny_g":
+        return row["price_usd_oz"]
+    if (rule["price_type"] or "sale") == "buyback":
+        return row["buyback_price_cny_g"] or row["price_cny_g"]
+    return row["price_cny_g"]
+
+
 def _cooldown_passed(last_triggered_at, cooldown_minutes):
     if not last_triggered_at:
         return True
@@ -100,12 +122,13 @@ def _format_local_time(value):
 def _build_subscribe_data(rule, current_price, triggered_at):
     unit_text = "人民币/克" if rule["unit"] == "cny_g" else "美元/盎司"
     direction_text = "高于" if rule["direction"] == "above" else "低于"
+    price_type_text = _price_type_text(rule["price_type"] or "sale")
     return {
         "amount4": {"value": f"{current_price:.2f}"},
         "time5": {"value": _format_local_time(triggered_at)},
         "time11": {"value": _format_local_time(triggered_at)},
         "thing15": {"value": "国际黄金"},
-        "thing6": {"value": f"已{direction_text}{rule['target_price']:.2f}{unit_text}"},
+        "thing6": {"value": f"{price_type_text}已{direction_text}{rule['target_price']:.2f}{unit_text}"},
     }
 
 
@@ -118,10 +141,10 @@ def scan_alerts(price: dict):
 
         triggered = []
         for rule in rules:
-            current_price = price["price_cny_g"] if rule["unit"] == "cny_g" else price["price_usd_oz"]
+            current_price = _select_rule_price(price, rule)
             previous_price = None
             if previous:
-                previous_price = previous["price_cny_g"] if rule["unit"] == "cny_g" else previous["price_usd_oz"]
+                previous_price = _select_snapshot_price(previous, rule)
 
             above_hit = rule["direction"] == "above" and current_price >= rule["target_price"]
             below_hit = rule["direction"] == "below" and current_price <= rule["target_price"]
@@ -144,8 +167,8 @@ def scan_alerts(price: dict):
             conn.execute(
                 """
                 INSERT INTO alert_histories
-                (rule_id, openid, trigger_price, target_price, direction, unit, message, triggered_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                (rule_id, openid, trigger_price, target_price, direction, unit, price_type, message, triggered_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     rule["id"],
@@ -154,6 +177,7 @@ def scan_alerts(price: dict):
                     rule["target_price"],
                     rule["direction"],
                     rule["unit"],
+                    rule["price_type"] or "sale",
                     message,
                     triggered_at,
                 ),

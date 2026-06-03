@@ -41,6 +41,14 @@ WECHAT_MINIPROGRAM_STATE="trial"
 
 未配置或配置错误时，小程序前端会自动使用本地 demo 用户，方便继续开发联调。
 
+黄金行情默认优先使用原有福利云来源，失败后回退到脉动行情 `RT_AU`。脉动正式报价接口需要服务器出口 IP 授权；未授权时，后端会尝试解析公开演示页作为临时 fallback。
+
+```bash
+PULSEDATA_BASE_URL="http://39.107.99.235:1008"
+PULSEDATA_CODE="RT_AU"
+PULSEDATA_PUBLIC_FALLBACK="true"
+```
+
 订阅消息模板当前使用“产品价格变动提醒”，字段映射为：
 
 - `amount4`：当前价格

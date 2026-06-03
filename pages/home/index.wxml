@@ -29,10 +29,20 @@
           </view>
         </view>
         <view class="unit">人民币/克</view>
-        <view class="change {{changeClass}}">
-          今日变化 {{changeText}} · {{changePercentText}}
-        </view>
       </view>
+    </view>
+
+    <view class="chart-panel">
+      <view class="chart-head">24h 回收价走势</view>
+      <view wx:if="{{klineLoading}}" class="chart-state">正在生成K线...</view>
+      <view wx:elif="{{klineError}}" class="chart-state error">{{klineError}}</view>
+      <ec-canvas
+        wx:else
+        id="kline-chart"
+        class="kline-chart"
+        canvas-id="kline-chart"
+        ec="{{ ec }}"
+      ></ec-canvas>
     </view>
 
     <view class="quick-grid">
@@ -53,7 +63,7 @@
     </view>
 
     <view class="notice">
-      本服务仅提供黄金价格信息与提醒功能。
+      仅供个人关注黄金价格变化与记录提醒。
     </view>
   </view>
 </view>

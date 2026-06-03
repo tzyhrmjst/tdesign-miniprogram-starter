@@ -3,6 +3,6 @@
   "usingComponents": {
     "t-pull-down-refresh": "tdesign-miniprogram/pull-down-refresh/pull-down-refresh",
     "t-icon": "tdesign-miniprogram/icon/icon",
-    "nav": "/components/nav"
+    "ec-canvas": "/components/ec-canvas/ec-canvas"
   }
 }

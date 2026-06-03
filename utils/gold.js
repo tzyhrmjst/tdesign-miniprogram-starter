@@ -57,6 +57,8 @@ export const unitSymbol = (unit) => (unit === 'cny_g' ? '¥' : '$');
 
 export const directionText = (direction) => (direction === 'below' ? '低于' : '高于');
 
+export const priceTypeText = (priceType) => (priceType === 'buyback' ? '回收价' : '售价');
+
 export const normalizeLatest = (data = {}) => {
   const priceUsdOz = Number(data.price_usd_oz || data.price || 0);
   const priceCnyG = Number(data.price_cny_g || ((priceUsdOz * 7.2) / OUNCE_TO_GRAM).toFixed(2));

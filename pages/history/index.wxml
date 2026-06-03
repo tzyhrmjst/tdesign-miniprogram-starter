@@ -15,7 +15,7 @@
           <view class="time">{{item.timeText}}</view>
         </view>
         <view class="price-line">
-          触发价 {{item.unitSymbol}}{{item.triggerText}}，目标为{{item.directionText}} {{item.unitSymbol}}{{item.targetText}}
+          {{item.priceTypeText}}触发价 {{item.unitSymbol}}{{item.triggerText}}，目标为{{item.directionText}} {{item.unitSymbol}}{{item.targetText}}
         </view>
         <view class="unit">{{item.unitText}}</view>
       </view>

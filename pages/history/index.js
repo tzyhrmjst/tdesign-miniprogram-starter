@@ -1,5 +1,5 @@
 import { fetchAlertHistory } from '~/api/gold';
-import { directionText, formatPrice, formatTime, unitSymbol, unitText } from '~/utils/gold';
+import { directionText, formatPrice, formatTime, priceTypeText, unitSymbol, unitText } from '~/utils/gold';
 
 Page({
   data: {
@@ -27,6 +27,7 @@ Page({
           ...item,
           timeText: formatTime(item.triggered_at),
           directionText: directionText(item.direction),
+          priceTypeText: priceTypeText(item.price_type),
           unitText: unitText(item.unit),
           unitSymbol: unitSymbol(item.unit),
           triggerText: formatPrice(item.trigger_price),

@@ -112,3 +112,4 @@ project.private.config.json
 
 # Local backend runtime data
 *.db
+.venv/

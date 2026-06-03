@@ -12,6 +12,7 @@ const initialAlerts = () => [
     direction: 'above',
     target_price: 4600,
     unit: 'usd_oz',
+    price_type: 'sale',
     cooldown_minutes: 720,
     enabled: true,
     last_triggered_at: null,
@@ -35,6 +36,8 @@ const setMockAlerts = (alerts) => {
 export const fetchLatestGold = () => request('/api/gold/latest').then((res) => res.data.data || res.data);
 
 export const fetchPriceHistory = (range = '1d') => request('/api/gold/history', 'GET', { range }).then((res) => res.data.data || []);
+
+export const fetchKline = (period = 15, limit = 96, priceType = 'sale') => request('/api/gold/kline', 'GET', { period, limit, price_type: priceType }).then((res) => res.data.data || []);
 
 export const fetchAlerts = () => {
   if (config.isMock) return Promise.resolve(getMockAlerts());
