@@ -112,6 +112,25 @@ function initChart(canvas, width, height, dpr) {
   return chart;
 }
 
+function isSameLocalDate(value, target) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return false;
+
+  return date.getFullYear() === target.getFullYear()
+    && date.getMonth() === target.getMonth()
+    && date.getDate() === target.getDate();
+}
+
+function getCandleHigh(candle) {
+  const value = Number(candle.high || candle.close);
+  return Number.isFinite(value) ? value : null;
+}
+
+function getCandleLow(candle) {
+  const value = Number(candle.low || candle.close);
+  return Number.isFinite(value) ? value : null;
+}
+
 Page({
   data: {
     loading: true,
@@ -123,6 +142,8 @@ Page({
     updatedAtText: '--',
     klineLoading: true,
     klineError: '',
+    todayHighPrice: '--',
+    todayLowPrice: '--',
     ec: {
       onInit: initChart,
     },
@@ -131,6 +152,7 @@ Page({
 
   onLoad() {
     this._animTimers = {};
+    this._showShareMenu();
     this.loadLatest();
     setTimeout(() => this.loadKline(), 100);
     this._startPolling();
@@ -153,6 +175,40 @@ Page({
     this._stopPolling();
     chartInstance = null;
     pendingKlineData = null;
+  },
+
+  _showShareMenu() {
+    if (!wx.showShareMenu) return;
+
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline'],
+    });
+  },
+
+  _getShareInfo() {
+    const priceText = this.data.displayBuybackPrice && this.data.displayBuybackPrice !== '--'
+      ? `回收价 ¥${this.data.displayBuybackPrice}/克`
+      : '实时关注黄金价格变化';
+
+    return {
+      title: `黄金价格提醒 · ${priceText}`,
+      path: '/pages/home/index',
+      imageUrl: '/static/home/swiper0.png',
+    };
+  },
+
+  onShareAppMessage() {
+    return this._getShareInfo();
+  },
+
+  onShareTimeline() {
+    const shareInfo = this._getShareInfo();
+    return {
+      title: shareInfo.title,
+      query: '',
+      imageUrl: shareInfo.imageUrl,
+    };
   },
 
   _startPolling() {
@@ -191,16 +247,47 @@ Page({
     try {
       const data = await fetchKline(5, 288, 'buyback');
       if (!data || !data.length) {
-        this.setData({ klineData: [], klineError: '快照数据不足，稍后自动生成' });
+        this.setData({
+          klineData: [],
+          klineError: '快照数据不足，稍后自动生成',
+          todayHighPrice: '--',
+          todayLowPrice: '--',
+        });
         return;
       }
-      this.setData({ klineData: data });
+      this.setData({
+        klineData: data,
+        ...this.getTodayRange(data),
+      });
       applyKlineToChart(data);
     } catch (err) {
-      this.setData({ klineError: '暂时无法加载K线' });
+      this.setData({
+        klineError: '暂时无法加载K线',
+        todayHighPrice: '--',
+        todayLowPrice: '--',
+      });
     } finally {
       this.setData({ klineLoading: false });
     }
+  },
+
+  getTodayRange(data) {
+    const today = new Date();
+    const todayCandles = data.filter((item) => isSameLocalDate(item.ts, today));
+    const highs = todayCandles.map(getCandleHigh).filter((value) => value !== null);
+    const lows = todayCandles.map(getCandleLow).filter((value) => value !== null);
+
+    if (!highs.length || !lows.length) {
+      return {
+        todayHighPrice: '--',
+        todayLowPrice: '--',
+      };
+    }
+
+    return {
+      todayHighPrice: formatPrice(Math.max(...highs), 2),
+      todayLowPrice: formatPrice(Math.min(...lows), 2),
+    };
   },
 
   onRefresh() {

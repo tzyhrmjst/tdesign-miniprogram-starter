@@ -14,6 +14,7 @@
 
 .profile-card,
 .setting-card,
+.support-card,
 .notice {
   border-radius: 8rpx;
   padding: 28rpx;
@@ -74,4 +75,42 @@
   font-size: 26rpx;
   font-weight: 600;
   text-align: right;
+}
+
+.support-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+}
+
+.support-title {
+  color: #1f2328;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.support-desc {
+  margin-top: 8rpx;
+  color: #6d6a62;
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
+.support-button {
+  flex: 0 0 auto;
+  min-width: 148rpx;
+  height: 64rpx;
+  margin: 0;
+  padding: 0 24rpx;
+  border-radius: 8rpx;
+  background: #1b1d1f;
+  color: #fffaf0;
+  font-size: 26rpx;
+  font-weight: 600;
+  line-height: 64rpx;
+}
+
+.support-button::after {
+  border: 0;
 }

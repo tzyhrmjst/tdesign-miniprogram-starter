@@ -6,7 +6,7 @@
       <view class="avatar">AU</view>
       <view>
         <view class="name">黄金价格关注助手</view>
-        <view class="openid">身份类型：{{openidSource}}</view>
+        <view class="openid">登录状态：{{openidSource}}</view>
         <view class="openid">当前用户：{{openid}}</view>
       </view>
     </view>
@@ -16,6 +16,22 @@
         <view class="setting-label">{{item.label}}</view>
         <view class="setting-value">{{item.value}}</view>
       </view>
+    </view>
+
+    <view class="support-card">
+      <view>
+        <view class="support-title">反馈与客服</view>
+        <view class="support-desc">价格异常、提醒问题或使用建议都可以告诉我们</view>
+      </view>
+      <button
+        class="support-button"
+        open-type="contact"
+        show-message-card="{{true}}"
+        send-message-title="黄金价格关注助手反馈"
+        send-message-path="/pages/my/index"
+      >
+        去反馈
+      </button>
     </view>
 
     <view class="notice">

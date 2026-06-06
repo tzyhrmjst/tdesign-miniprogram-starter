@@ -28,7 +28,7 @@ Page({
     const source = getOpenidSource();
     this.setData({
       openid: getOpenid(),
-      openidSource: source === 'wechat' ? '微信用户' : '本地演示用户',
+      openidSource: source === 'wechat' ? '微信登录' : '游客模式',
     });
   },
 });

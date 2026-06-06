@@ -1,5 +1,10 @@
 <view class="gold-page">
-  <view class="gold-title">黄金价格提醒</view>
+  <view class="gold-title-bar">
+    <view class="gold-title">黄金价格提醒</view>
+    <button class="share-button" open-type="share" aria-label="分享">
+      <t-icon name="share" size="36rpx" />
+    </button>
+  </view>
 
   <view class="gold-content">
     <view class="price-panel">
@@ -33,7 +38,19 @@
     </view>
 
     <view class="chart-panel">
-      <view class="chart-head">24h 回收价走势</view>
+      <view class="chart-head">
+        <view class="chart-title">回收价走势</view>
+        <view class="today-range">
+          <view class="range-item">
+            <text class="range-label">今日最高</text>
+            <text class="range-value high">¥{{todayHighPrice}}</text>
+          </view>
+          <view class="range-item">
+            <text class="range-label">今日最低</text>
+            <text class="range-value low">¥{{todayLowPrice}}</text>
+          </view>
+        </view>
+      </view>
       <view wx:if="{{klineLoading}}" class="chart-state">正在生成K线...</view>
       <view wx:elif="{{klineError}}" class="chart-state error">{{klineError}}</view>
       <ec-canvas
