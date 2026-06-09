@@ -36,8 +36,11 @@ cp .env.example .env
 WECHAT_APPID="你的小程序 AppID"
 WECHAT_SECRET="你的小程序 AppSecret"
 WECHAT_SUBSCRIBE_TEMPLATE_ID="你的订阅消息模板 ID"
-WECHAT_MINIPROGRAM_STATE="trial"
+WECHAT_MINIPROGRAM_STATE="formal"
 ```
+
+正式环境必须使用 `formal`。修改服务器 `/opt/gold/backend/.env` 后，需要重启
+`gold-api.service` 才会应用新的通知跳转版本。
 
 未配置或配置错误时，小程序前端会自动使用本地 demo 用户，方便继续开发联调。
 

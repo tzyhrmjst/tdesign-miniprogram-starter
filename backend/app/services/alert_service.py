@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 from app.db.database import get_conn
 from app.services.wechat_service import send_subscribe_message
@@ -107,11 +107,22 @@ def _select_snapshot_price(row, rule):
     return row["price_cny_g"]
 
 
-def _cooldown_passed(last_triggered_at, cooldown_minutes):
-    if not last_triggered_at:
-        return True
-    last = datetime.fromisoformat(last_triggered_at.replace("Z", "+00:00"))
-    return datetime.now(timezone.utc) - last >= timedelta(minutes=cooldown_minutes)
+def _crossed_target(direction, target_price, previous_price, current_price, has_triggered):
+    if not has_triggered:
+        return (
+            direction == "above" and current_price >= target_price
+        ) or (
+            direction == "below" and current_price <= target_price
+        )
+    if previous_price is None:
+        return False
+    return (
+        direction == "above"
+        and previous_price < target_price <= current_price
+    ) or (
+        direction == "below"
+        and previous_price > target_price >= current_price
+    )
 
 
 def _format_local_time(value):
@@ -146,20 +157,14 @@ def scan_alerts(price: dict):
             if previous:
                 previous_price = _select_snapshot_price(previous, rule)
 
-            above_hit = rule["direction"] == "above" and current_price >= rule["target_price"]
-            below_hit = rule["direction"] == "below" and current_price <= rule["target_price"]
-            crossed = rule["last_triggered_at"] is None
-            if previous_price is not None and rule["last_triggered_at"] is not None:
-                crossed = (
-                    rule["direction"] == "above"
-                    and previous_price < rule["target_price"] <= current_price
-                ) or (
-                    rule["direction"] == "below"
-                    and previous_price > rule["target_price"] >= current_price
-                )
-            if not (above_hit or below_hit) or not crossed:
-                continue
-            if not _cooldown_passed(rule["last_triggered_at"], rule["cooldown_minutes"]):
+            crossed = _crossed_target(
+                rule["direction"],
+                rule["target_price"],
+                previous_price,
+                current_price,
+                rule["last_triggered_at"] is not None,
+            )
+            if not crossed:
                 continue
 
             triggered_at = now_iso()

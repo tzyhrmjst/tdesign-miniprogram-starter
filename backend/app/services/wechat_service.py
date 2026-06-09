@@ -13,6 +13,16 @@ _access_token = ""
 _access_token_expires_at = 0
 
 
+def get_miniprogram_state():
+    state = os.getenv("WECHAT_MINIPROGRAM_STATE", "formal").strip().lower()
+    if state not in {"developer", "trial", "formal"}:
+        raise HTTPException(
+            status_code=503,
+            detail=f"Invalid WECHAT_MINIPROGRAM_STATE: {state}",
+        )
+    return state
+
+
 def _request_json(url, payload=None):
     data = None
     headers = {}
@@ -66,7 +76,7 @@ def send_subscribe_message(openid: str, data: dict):
         "touser": openid,
         "template_id": template_id,
         "page": "pages/history/index",
-        "miniprogram_state": os.getenv("WECHAT_MINIPROGRAM_STATE", "formal"),
+        "miniprogram_state": get_miniprogram_state(),
         "lang": "zh_CN",
         "data": data,
     }

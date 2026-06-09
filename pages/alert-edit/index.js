@@ -9,7 +9,6 @@ const defaultForm = {
   target_price: '',
   unit: 'cny_g',
   price_type: 'sale',
-  cooldown_minutes: 720,
   enabled: true,
 };
 
@@ -53,7 +52,6 @@ Page({
           target_price: String(target.target_price),
           unit: target.unit,
           price_type: target.price_type || 'sale',
-          cooldown_minutes: target.cooldown_minutes,
           enabled: target.enabled,
         },
       });
@@ -89,13 +87,8 @@ Page({
   buildPayload() {
     const { autoNameEnabled, form } = this.data;
     const targetPrice = Number(form.target_price);
-    const cooldown = Number(form.cooldown_minutes);
     if (!targetPrice || targetPrice <= 0) {
       wx.showToast({ title: '价格必须大于 0', icon: 'none' });
-      return null;
-    }
-    if (!Number.isInteger(cooldown) || cooldown <= 0) {
-      wx.showToast({ title: '冷却时间需为正整数', icon: 'none' });
       return null;
     }
     const name = autoNameEnabled || !String(form.name).trim()
@@ -105,7 +98,6 @@ Page({
       ...form,
       name,
       target_price: targetPrice,
-      cooldown_minutes: cooldown,
     };
   },
 

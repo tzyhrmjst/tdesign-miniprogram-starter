@@ -38,18 +38,9 @@
       />
     </view>
 
-
     <view class="field">
-      <view class="label">冷却时间（分钟）</view>
-      <t-input
-        value="{{form.cooldown_minutes}}"
-        type="number"
-        placeholder="默认 720"
-        data-field="cooldown_minutes"
-        bind:change="onInput"
-      />
-      <view class="hint cooldown-hint">
-        同一条提醒触发后，在这段时间内不会重复记录。默认 720 分钟即 12 小时，可减少频繁打扰。
+      <view class="hint">
+        每次价格重新穿越目标价时提醒；价格持续停留在目标价同一侧时不会重复提醒。
       </view>
     </view>
 

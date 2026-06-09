@@ -12,6 +12,12 @@ Service:
 gold-api.service
 ```
 
+正式环境的 `/opt/gold/backend/.env` 必须包含：
+
+```bash
+WECHAT_MINIPROGRAM_STATE=formal
+```
+
 Initial server setup outline:
 
 ```bash
@@ -35,4 +41,11 @@ sudo nginx -t
 sudo systemctl daemon-reload
 sudo systemctl enable --now gold-api
 sudo systemctl reload nginx
+```
+
+修改 `.env` 后重启并确认服务：
+
+```bash
+sudo systemctl restart gold-api
+sudo systemctl status gold-api
 ```
