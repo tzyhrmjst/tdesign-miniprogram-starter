@@ -2,7 +2,6 @@
   "navigationStyle": "custom",
   "usingComponents": {
     "t-pull-down-refresh": "tdesign-miniprogram/pull-down-refresh/pull-down-refresh",
-    "t-icon": "tdesign-miniprogram/icon/icon",
     "ec-canvas": "/components/ec-canvas/ec-canvas"
   }
 }

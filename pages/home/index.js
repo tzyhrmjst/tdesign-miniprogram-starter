@@ -22,7 +22,14 @@ function buildOption(dates, prices) {
       type: 'category',
       data: dates,
       axisLine: { lineStyle: { color: 'rgba(248,243,231,0.12)' } },
-      axisLabel: { color: 'rgba(248,243,231,0.4)', fontSize: 9 },
+      axisLabel: {
+        color: 'rgba(248,243,231,0.4)',
+        fontSize: 9,
+        hideOverlap: true,
+        interval(index) {
+          return index % 24 === 0;
+        },
+      },
       axisTick: { show: false },
       splitLine: { show: false },
     },
@@ -46,7 +53,7 @@ function buildOption(dates, prices) {
       textStyle: { color: '#f8f3e7', fontSize: 11 },
       formatter(params) {
         const p = params[0];
-        return `${p.name}  ¥${Number(p.value).toFixed(2)}`;
+        return `${p.name}\n回收价 ¥${Number(p.value).toFixed(2)}`;
       },
     },
     series: [
@@ -79,7 +86,7 @@ function applyKlineToChart(data) {
     const t = d.ts || '';
     return t.length >= 16 ? t.substring(11, 16) : t;
   });
-  const prices = data.map((d) => d.close);
+  const prices = data.map((d) => Number(d.close));
 
   chartInstance.setOption(buildOption(dates, prices), true);
 }
@@ -180,10 +187,15 @@ Page({
   _showShareMenu() {
     if (!wx.showShareMenu) return;
 
-    wx.showShareMenu({
-      withShareTicket: true,
-      menus: ['shareAppMessage', 'shareTimeline'],
-    });
+    try {
+      wx.showShareMenu({
+        withShareTicket: true,
+        menus: ['shareAppMessage', 'shareTimeline'],
+        fail() {},
+      });
+    } catch (err) {
+      // 分享菜单在开发者工具里偶发 timeout，不影响页面主流程。
+    }
   },
 
   _getShareInfo() {

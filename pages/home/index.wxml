@@ -2,7 +2,7 @@
   <view class="gold-title-bar">
     <view class="gold-title">黄金价格提醒</view>
     <button class="share-button" open-type="share" aria-label="分享">
-      <t-icon name="share" size="36rpx" />
+      <text class="share-symbol">↗</text>
     </button>
   </view>
 
@@ -64,14 +64,14 @@
 
     <view class="quick-grid">
       <view class="quick-card" bindtap="goCreateAlert">
-        <t-icon name="notification-add" size="44rpx" />
+        <view class="quick-icon">＋</view>
         <view>
           <view class="quick-title">新增提醒</view>
           <view class="quick-desc">高于或低于目标价时记录提醒</view>
         </view>
       </view>
       <view class="quick-card" bindtap="goHistory">
-        <t-icon name="time" size="44rpx" />
+        <view class="quick-icon">时</view>
         <view>
           <view class="quick-title">提醒历史</view>
           <view class="quick-desc">查看已触发的价格提醒</view>

@@ -127,6 +127,20 @@ function compareVersion(v1, v2) {
   return 0;
 }
 
+function getSdkVersion() {
+  if (wx.getAppBaseInfo) {
+    return wx.getAppBaseInfo().SDKVersion;
+  }
+  return wx.getSystemInfoSync().SDKVersion;
+}
+
+function getPixelRatio() {
+  if (wx.getWindowInfo) {
+    return wx.getWindowInfo().pixelRatio || 1;
+  }
+  return wx.getSystemInfoSync().pixelRatio || 1;
+}
+
 Component({
   properties: {
     canvasId: {
@@ -184,7 +198,7 @@ Component({
 
   methods: {
     init: function init(callback) {
-      var version = wx.getSystemInfoSync().SDKVersion;
+      var version = getSdkVersion();
 
       var canUseNewCanvas = compareVersion(version, '2.9.0') >= 0;
       var forceUseOldCanvas = this.data.forceUseOldCanvas;
@@ -248,7 +262,7 @@ Component({
         var canvasNode = res[0].node;
         _this2.canvasNode = canvasNode;
 
-        var canvasDpr = wx.getSystemInfoSync().pixelRatio;
+        var canvasDpr = getPixelRatio();
         var canvasWidth = res[0].width;
         var canvasHeight = res[0].height;
 

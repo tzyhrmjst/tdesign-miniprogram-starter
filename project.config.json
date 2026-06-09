@@ -28,10 +28,6 @@
       },
       {
         "type": "folder",
-        "value": "mock/dataCenter"
-      },
-      {
-        "type": "folder",
         "value": "mock/gold"
       },
       {
@@ -40,55 +36,7 @@
       },
       {
         "type": "folder",
-        "value": "mock/login"
-      },
-      {
-        "type": "folder",
-        "value": "mock/my"
-      },
-      {
-        "type": "folder",
-        "value": "mock/search"
-      },
-      {
-        "type": "folder",
         "value": "static/home"
-      },
-      {
-        "type": "file",
-        "value": "static/img_td.png"
-      },
-      {
-        "type": "file",
-        "value": "static/avatar1.png"
-      },
-      {
-        "type": "file",
-        "value": "static/bg_navbar.png"
-      },
-      {
-        "type": "file",
-        "value": "static/bg_navbar2.png"
-      },
-      {
-        "type": "file",
-        "value": "static/icon_doc.png"
-      },
-      {
-        "type": "file",
-        "value": "static/icon_map.png"
-      },
-      {
-        "type": "file",
-        "value": "static/icon_qq.png"
-      },
-      {
-        "type": "file",
-        "value": "static/icon_td.png"
-      },
-      {
-        "type": "file",
-        "value": "static/icon_wx.png"
       },
       {
         "type": "suffix",
@@ -152,47 +100,9 @@
     "miniprogram": {
       "list": [
         {
-          "name": "login",
-          "pathName": "pages/login/login",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "loginCode",
-          "pathName": "pages/loginCode/loginCode",
-          "query": "",
-          "scene": null
-        },
-        {
           "name": "my",
           "pathName": "pages/my/index",
           "query": "",
-          "scene": null
-        },
-        {
-          "name": "info-edit",
-          "pathName": "pages/my/info-edit/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "dataCenter",
-          "pathName": "pages/dataCenter/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "release",
-          "pathName": "pages/release/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "setting",
-          "pathName": "pages/setting/index",
-          "query": "",
-          "launchMode": "default",
           "scene": null
         }
       ]
