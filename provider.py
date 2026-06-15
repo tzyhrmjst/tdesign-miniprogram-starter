@@ -2,6 +2,7 @@ import json
 import gzip
 import os
 import re
+import subprocess
 import threading
 import time
 import urllib.request
@@ -143,6 +144,15 @@ class GoldApiProvider:
         return json.loads(self._request_text(url))
 
     def _request_text(self, url: str) -> str:
+        if url == TMINI_GOLD_URL:
+            return subprocess.run(
+                ["curl", "-fsSL", "--max-time", "8", url],
+                check=True,
+                capture_output=True,
+                text=True,
+                timeout=10,
+            ).stdout
+
         request = urllib.request.Request(
             url,
             headers={
