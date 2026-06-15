@@ -13,7 +13,7 @@ from urllib.parse import urlencode
 
 CHINA_TZ = timezone(timedelta(hours=8))
 XWTEAM_GOLD_URL = os.getenv("XWTEAM_GOLD_URL", "https://free.xwteam.cn/api/gold/trade?line=yt")
-TMINI_GOLD_URL = os.getenv("TMINI_GOLD_URL", "https://tmini.net/api/gold-price?type=json")
+TMINI_GOLD_URL = os.getenv("TMINI_GOLD_URL", "https://www.tmini.net/api/gold-price?type=json")
 TMINI_CACHE_SECONDS = max(1, float(os.getenv("TMINI_CACHE_SECONDS", "5")))
 PULSEDATA_BASE_URL = os.getenv("PULSEDATA_BASE_URL", "http://39.107.99.235:1008").rstrip("/")
 PULSEDATA_CODE = os.getenv("PULSEDATA_CODE", "RT_AU")
